@@ -1,0 +1,28 @@
+{
+  "name": "nodemovie",
+  "description": "A simple movie management site based on node,express and mongoose",
+  "main": "app.js",
+  "authors": [
+    "Lingesin.Deng@wistronits.com"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "node",
+    "mongoose",
+    "express",
+    "movie"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jQuery": "^3.3.1",
+    "bootstrap": "^3.3.7"
+  }
+}

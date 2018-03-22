@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+	.container
+		.row
+			a.btn.btn-primary(target="_blank",href="../admin/movie") add
+		.row
+			table.table.table-hover.table-bordered
+				thead
+					tr
+						th title
+						th doctor
+						th country
+						th year
+						th updateAt
+						th view
+						th update
+						th delete
+				tbody
+					each item in movies
+						tr(id="tr-#{item._id}")
+							th #{item.title}
+							th #{item.doctor}
+							th #{item.country}
+							th #{item.year}
+							th #{moment(item.meta.updateAt).format('YYYY MM DD')}
+							th 
+								a(target="_blank",href="../movie/#{item._id}") view
+							th 
+								a(target="_blank",href="../admin/movie/#{item._id}") update
+							th 
+								button.btn.btn-danger.del(type="button",data-id="#{item._id}") delete
+	script(src="/js/main.js")
