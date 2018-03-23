@@ -23,7 +23,7 @@ module.exports = function(grunt) {
 					args: [],
 					ignoreFiles: ['README.md', 'node_modules/**', '.DS_Store', '.vscode', '.git'],
 					watchedExtensions: ['js'],
-					watchedFolders: ['app', 'config'],
+					watchedFolders: ['./'],// 保存后就触发，save all不触发
 					debug: true,
 					delayTime: 1,
 					env: {

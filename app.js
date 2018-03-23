@@ -1,13 +1,14 @@
 var express = require('express');
 var path = require('path');
 var mongoose = require('mongoose');
-var movie = require('./models/movie');
+var Movie = require('./models/movie');
+var User = require('./models/user');
 var _ = require('underscore');
 var bodyParser = require('body-parser');
 var port = process.env.PORT || 9000;
 var app = express();
 
-mongoose.connect('mongodb://localhost/movie')
+mongoose.connect('mongodb://localhost/movie');
 
 app.set('views', './views/pages');
 app.set('view engine', 'jade');
@@ -24,7 +25,7 @@ console.log('Server start on ' + port);
 
 //  index page
 app.get('/', function(req, res) {
-	movie.fetch(function(err, movies) {
+	Movie.fetch(function(err, movies) {
 		if (err) {
 			console.log(err);
 		}
@@ -53,8 +54,8 @@ app.get('/', function(req, res) {
 app.get('/movie/:id', function(req, res) {
 	var id = req.params.id;
 	// res.render(id);
-	console.log(id);
-	movie.findById(id, function(err, movie) {
+	// console.log(id);
+	Movie.findById(id, function(err, movie) {
 
 		res.render('detail', {
 			title: 'detail',
@@ -81,8 +82,8 @@ app.get('/movie/:id', function(req, res) {
 app.get('/admin/movie/:id', function(req, res) {
 	var id = req.params.id;
 	// res.render(id);
-	console.log(id);
-	movie.findById(id, function(err, movie) {
+	// console.log(id);
+	Movie.findById(id, function(err, movie) {
 
 		res.render('admin', {
 			title: 'update movie',
@@ -128,7 +129,7 @@ app.post('/admin/update/:id', function(req, res) {
 	var id = req.params.id;
 
 	if (id) {
-		movie.findById(id, function(err, movie) {
+		Movie.findById(id, function(err, movie) {
 
 			res.render('detail', {
 				title: 'movie update',
@@ -143,12 +144,12 @@ app.post('/admin/movie/new', function(req, res) {
 	var id = req.body.movie._id;
 	var movieObj = req.body.movie;
 	var _movie;
-	console.log(_movie);
+	// console.log(_movie);
 
 	if (id !== 'undefined') {
-		console.log("1");
+		// console.log("1");
 
-		movie.findById(id, function(err, movie) {
+		Movie.findById(id, function(err, movie) {
 			if (err) {
 				console.log(err);
 			}
@@ -174,12 +175,12 @@ app.post('/admin/movie/new', function(req, res) {
 			poster: movieObj.poster,
 			year: movieObj.year,
 		});
-		console.log(_movie);
+		// console.log(_movie);
 		_movie.save(function(err, movie) {
 			if (err) {
 				console.log(err);
 			}
-			console.log(movie);
+			// console.log(movie);
 
 			res.redirect('/movie/' + movie._id);
 		})
@@ -188,7 +189,7 @@ app.post('/admin/movie/new', function(req, res) {
 
 //  admin list page
 app.get('/admin/list', function(req, res) {
-	movie.fetch(function(err, movies) {
+	Movie.fetch(function(err, movies) {
 		if (err) {
 			console.log(err);
 		}
@@ -230,9 +231,9 @@ app.get('/admin/list', function(req, res) {
 //  admin delete movie
 app.delete('/admin/list', function(req, res) {
 	var id = req.query.id;
-
+	// console.log(id);
 	if (id) {
-		movie.remove({
+		Movie.remove({
 			_id: id
 		}, function(err, movie) {
 			if (err) {
@@ -244,4 +245,56 @@ app.delete('/admin/list', function(req, res) {
 			}
 		})
 	}
+})
+
+// user sign up
+app.post('/user/signup', function(req, res) {
+	var _user = req.body.user;
+	// var _user = req.param('user');
+	// var _user = req.params.user;
+	// console.log(_user);
+	// /user/signup/111?userid=111
+	// var _userid = req.query.userid;
+	// post {userid:112}
+	// var _userid = req.body.userid;
+
+	// var user = new User({
+	// 	name: _user.name,
+	// 	password: _user.password
+	// });
+
+	User.find({
+		name: _user.name
+	}, function(err, user) {
+		if (err) {
+			console.log(err);
+		}
+
+		if (user) {
+			return res.redirect('/');
+		} else {
+			var user = new User(_user);
+			user.save(function(err, user) {
+				if (err) {
+					console.log(err);
+				} else {
+					res.redirect('/admin/user/list');
+				}
+			})
+		}
+	})
+})
+
+//  user list page
+app.get('/admin/user/list', function(req, res) {
+	User.fetch(function(err, users) {
+		if (err) {
+			console.log(err);
+		}
+
+		res.render('userList', {
+			title: 'user list',
+			users: users
+		})
+	})
 })

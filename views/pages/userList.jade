@@ -11,21 +11,15 @@ block content
 			table.table.table-hover.table-bordered
 				thead
 					tr
-						th title
-						th doctor
-						th country
-						th year
+						th name
 						th updateAt
 						th view
 						th update
 						th delete
 				tbody
-					each item in movies
+					each item in users
 						tr(id="tr-#{item._id}")
-							th #{item.title}
-							th #{item.doctor}
-							th #{item.country}
-							th #{item.year}
+							th #{item.name}
 							th #{moment(item.meta.updateAt).format('YYYY MM DD')}
 							th 
 								a(target="_blank",href="../movie/#{item._id}") view
@@ -33,4 +27,4 @@ block content
 								a(target="_blank",href="../admin/movie/#{item._id}") update
 							th 
 								button.btn.btn-danger.del(type="button",data-id="#{item._id}") delete
-	script(src="/js/main.js")
+	//- script(src="/js/main.js")

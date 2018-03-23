@@ -15,6 +15,7 @@
   "author": "Lingesin.Deng@wistronits.com",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "jade": "^1.11.0",
