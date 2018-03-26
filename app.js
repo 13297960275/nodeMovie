@@ -5,6 +5,7 @@ var Movie = require('./models/movie');
 var User = require('./models/user');
 var _ = require('underscore');
 var bodyParser = require('body-parser');
+var cookieSession = require('cookie-session')
 var port = process.env.PORT || 9000;
 var app = express();
 
@@ -17,6 +18,10 @@ app.locals.moment = require('moment');
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
+// app.use(express.cookieParser());
+app.use(cookieSession({
+	secret: 'movie'
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(port);
@@ -25,6 +30,7 @@ console.log('Server start on ' + port);
 
 //  index page
 app.get('/', function(req, res) {
+	console.log('session==' + JSON.stringify( req.session.user));
 	Movie.fetch(function(err, movies) {
 		if (err) {
 			console.log(err);
@@ -35,81 +41,60 @@ app.get('/', function(req, res) {
 			movies: movies
 		})
 	})
-
-	// res.render('index', {
-	// 	title: 'index',
-	// 	movies: [{
-	// 		_id: 1,
-	// 		title: '1',
-	// 		poster: '1'
-	// 	}, {
-	// 		_id: 2,
-	// 		title: '2',
-	// 		poster: '2'
-	// 	}]
-	// })
 })
 
-//  detail page
+//  movie detail page
 app.get('/movie/:id', function(req, res) {
 	var id = req.params.id;
 	// res.render(id);
 	// console.log(id);
 	Movie.findById(id, function(err, movie) {
 
-		res.render('detail', {
+		res.render('movie/detail', {
 			title: 'detail',
 			movie: movie
 		})
 	})
-
-	// res.render('detail', {
-	// 	title: 'detail',
-	// 	movie: {
-	// 		title: '1',
-	// 		doctor: '1',
-	// 		country: '1',
-	// 		language: '1',
-	// 		poster: '1',
-	// 		flash: 'https://moco.imooc.com/mocoplayer/2.7.2/mocoplayer.swf?v=2.7',
-	// 		year: '1',
-	// 		summary: '1'
-	// 	}
-	// })
 })
 
-// admin update page
+/*movie module page*/
+
+//  admin movie list page
+app.get('/admin/movie/list', function(req, res) {
+	console.log('req==' + req);
+
+	Movie.fetch(function(err, movies) {
+		console.log('====');
+
+		if (err) {
+			console.log(err);
+		}
+		console.log(movies);
+
+		res.render('movie/list', {
+			title: 'admin index',
+			movies: movies
+		})
+	})
+})
+
+// admin update movie page
 app.get('/admin/movie/:id', function(req, res) {
 	var id = req.params.id;
 	// res.render(id);
 	// console.log(id);
 	Movie.findById(id, function(err, movie) {
 
-		res.render('admin', {
+		res.render('movie/movie', {
 			title: 'update movie',
 			movie: movie
 		})
 	})
-
-
-	// res.render('admin', {
-	// 	title: 'update movie',
-	// 	movie: {
-	// 		title: '1',
-	// 		doctor: '1',
-	// 		country: '1',
-	// 		language: '1',
-	// 		poster: '1',
-	// 		flash: 'https://moco.imooc.com/mocoplayer/2.7.2/mocoplayer.swf?v=2.7',
-	// 		year: '1',
-	// 		summary: '1'
-	// 	}
-	// })
 })
 
 //  admin add movie page
 app.get('/admin/movie', function(req, res) {
-	res.render('admin', {
+	res.render('movie/movie', {
 		title: 'admin movie',
 		movie: {
 			title: '',
@@ -124,14 +109,16 @@ app.get('/admin/movie', function(req, res) {
 	})
 })
 
+/*movie module fun*/
+
 //  admin update movie func
-app.post('/admin/update/:id', function(req, res) {
+app.post('/admin/movie/edit/:id', function(req, res) {
 	var id = req.params.id;
 
 	if (id) {
 		Movie.findById(id, function(err, movie) {
 
-			res.render('detail', {
+			res.render('movie/detail', {
 				title: 'movie update',
 				movie: movie
 			})
@@ -140,7 +127,7 @@ app.post('/admin/update/:id', function(req, res) {
 })
 
 // admin add movie fun
-app.post('/admin/movie/new', function(req, res) {
+app.post('/admin/movie/add', function(req, res) {
 	var id = req.body.movie._id;
 	var movieObj = req.body.movie;
 	var _movie;
@@ -164,8 +151,8 @@ app.post('/admin/movie/new', function(req, res) {
 			})
 		})
 	} else {
-		console.log("2");
-		_movie = new movie({
+		// console.log("2");
+		_movie = new Movie({
 			doctor: movieObj.doctor,
 			title: movieObj.title,
 			language: movieObj.language,
@@ -187,49 +174,8 @@ app.post('/admin/movie/new', function(req, res) {
 	}
 })
 
-//  admin list page
-app.get('/admin/list', function(req, res) {
-	Movie.fetch(function(err, movies) {
-		if (err) {
-			console.log(err);
-		}
-
-		res.render('list', {
-			title: 'admin index',
-			movies: movies
-		})
-	})
-
-	// res.render('list', {
-	// 	title: 'admin index',
-	// 	movies: [{
-	// 		_id: 1,
-	// 		title: '1',
-	// 		doctor: '1',
-	// 		country: '1',
-	// 		language: '1',
-	// 		// poster: '1',
-	// 		entryTime: '',
-	// 		flash: 'https://moco.imooc.com/mocoplayer/2.7.2/mocoplayer.swf?v=2.7',
-	// 		year: 2016,
-	// 		// summary: '1'
-	// 	}, {
-	// 		_id: 2,
-	// 		title: '2',
-	// 		doctor: '2',
-	// 		country: '2',
-	// 		language: '2',
-	// 		// poster: '2',
-	// 		entryTime: '',
-	// 		flash: 'https://moco.imooc.com/mocoplayer/2.7.2/mocoplayer.swf?v=2.7',
-	// 		year: 2026,
-	// 		// summary: '2'
-	// 	}]
-	// })
-})
-
-//  admin delete movie
-app.delete('/admin/list', function(req, res) {
+//  admin delete movie fun
+app.delete('/admin/movie/del', function(req, res) {
 	var id = req.query.id;
 	// console.log(id);
 	if (id) {
@@ -247,12 +193,30 @@ app.delete('/admin/list', function(req, res) {
 	}
 })
 
-// user sign up
-app.post('/user/signup', function(req, res) {
+/*user module page*/
+
+//  admin user list page
+app.get('/admin/user/list', function(req, res) {
+	User.fetch(function(err, users) {
+		if (err) {
+			console.log(err);
+		}
+
+		res.render('userList', {
+			title: 'user list',
+			users: users
+		})
+	})
+})
+
+/*user module fun*/
+
+// user sign up fun
+app.post('/admin/user/signup', function(req, res) {
 	var _user = req.body.user;
 	// var _user = req.param('user');
 	// var _user = req.params.user;
-	// console.log(_user);
+	console.log('signup:_user====' + _user.name);
 	// /user/signup/111?userid=111
 	// var _userid = req.query.userid;
 	// post {userid:112}
@@ -270,14 +234,18 @@ app.post('/user/signup', function(req, res) {
 			console.log(err);
 		}
 
-		if (user) {
+		// if (JSON.stringify(user) !== '{}' ) {
+		if (user.length > 0) {
+			console.log('find:!user====' + JSON.stringify(user));
 			return res.redirect('/');
 		} else {
+			console.log('find:user====' + JSON.stringify(user));
 			var user = new User(_user);
 			user.save(function(err, user) {
 				if (err) {
 					console.log(err);
 				} else {
+					console.log('save:user====' + user.name);
 					res.redirect('/admin/user/list');
 				}
 			})
@@ -285,16 +253,56 @@ app.post('/user/signup', function(req, res) {
 	})
 })
 
-//  user list page
-app.get('/admin/user/list', function(req, res) {
-	User.fetch(function(err, users) {
+// user sign up
+app.post('/admin/user/signin', function(req, res) {
+	var _user = req.body.user;
+	console.log('signin:_user====' + _user.name);
+
+	User.findOne({
+		name: _user.name
+	}, function(err, user) {
 		if (err) {
 			console.log(err);
 		}
 
-		res.render('userList', {
-			title: 'user list',
-			users: users
+		if (!user) {
+			console.log('find:user====' + user);
+			return res.redirect('/');
+		}
+
+		user.comparePassword(_user.password, function(err, isMatch) {
+			if (err) {
+				console.log(err);
+			}
+
+			if (isMatch) {
+				console.log('password is matched');
+
+				req.session.user = user;
+				return res.redirect('/');
+			} else {
+				console.log('password is not matched')
+				res.redirect('/admin/user/list');
+			}
 		})
 	})
+})
+
+//  admin delete user fun
+app.delete('/admin/user/del', function(req, res) {
+	var id = req.query.id;
+	// console.log(id);
+	if (id) {
+		User.remove({
+			_id: id
+		}, function(err, user) {
+			if (err) {
+				console.log(err);
+			} else {
+				res.json({
+					success: 1
+				});
+			}
+		})
+	}
 })

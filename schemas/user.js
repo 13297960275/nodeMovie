@@ -7,10 +7,7 @@ var userSchema = new mongoose.Schema({
 		unique: true,
 		type: String
 	},
-	password: {
-		unique: false,
-		type: String
-	},
+	password: String,
 	meta: {
 		createAt: {
 			type: Date,
@@ -25,7 +22,7 @@ var userSchema = new mongoose.Schema({
 
 userSchema.pre('save', function(next) {
 	var user = this;
-	console.log('user.js===='+user);
+	console.log('user.js===user=' + user);
 	if (this.isNew) {
 		this.meta.createAt = this.meta.updateAt = Date.now();
 	} else {
@@ -34,17 +31,29 @@ userSchema.pre('save', function(next) {
 
 	bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
 		if (err) return next(err);
+		console.log('user.js===salt=' + salt);
 
 		bcrypt.hash(user.password, salt, function(err, hash) {
 			if (err) return next(err);
 
+			console.log('user.js===hash=' + hash);
 			user.password = hash;
 			next();
 		})
 	})
 
-	next();
+	// next();// 加上这个会不执行密码加密的操作
 })
+
+userSchema.methods = {
+	comparePassword: function(_pwd, cb) {
+		bcrypt.compare(_pwd, this.password, function(err, isMatch) {
+			if (err) return cb(err);
+
+			cb(null, isMatch);
+		})
+	}
+}
 
 userSchema.statics = {
 	fetch: function(cb) {

@@ -1,4 +1,4 @@
-extends ../layout
+extends ../../layout
 
 block content
 	.container
@@ -6,7 +6,7 @@ block content
 			h3 #{title}
 	.container
 		.row
-			a.btn.btn-primary(target="_blank",href="../admin/movie") add
+			a.btn.btn-primary(target="_blank",href="/admin/movie") add
 		.row
 			table.table.table-hover.table-bordered
 				thead
@@ -28,9 +28,9 @@ block content
 							th #{item.year}
 							th #{moment(item.meta.updateAt).format('YYYY MM DD')}
 							th 
-								a(target="_blank",href="../movie/#{item._id}") view
+								a(target="_blank",href="/movie/#{item._id}") view
 							th 
-								a(target="_blank",href="../admin/movie/#{item._id}") update
+								a(target="_blank",href="/admin/movie/#{item._id}") update
 							th 
-								button.btn.btn-danger.del(type="button",data-id="#{item._id}") delete
-	script(src="/js/main.js")
+								button.btn.btn-danger.del(onclick="del(1,this)",type="button",data-id="#{item._id}") delete
+	script(src="/js/admin.js")
