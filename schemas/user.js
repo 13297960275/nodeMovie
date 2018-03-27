@@ -22,7 +22,7 @@ var userSchema = new mongoose.Schema({
 
 userSchema.pre('save', function(next) {
 	var user = this;
-	console.log('user.js===user=' + user);
+	// console.log('user.js===user=' + user);
 	if (this.isNew) {
 		this.meta.createAt = this.meta.updateAt = Date.now();
 	} else {
@@ -31,12 +31,12 @@ userSchema.pre('save', function(next) {
 
 	bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
 		if (err) return next(err);
-		console.log('user.js===salt=' + salt);
+		// console.log('user.js===salt=' + salt);
 
 		bcrypt.hash(user.password, salt, function(err, hash) {
 			if (err) return next(err);
 
-			console.log('user.js===hash=' + hash);
+			// console.log('user.js===hash=' + hash);
 			user.password = hash;
 			next();
 		})

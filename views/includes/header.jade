@@ -6,10 +6,16 @@
 	.container
 		.navbar-header
 			a.navbar-brand(href="/") Movie Box
-		p.navbar-text.navbar-right
-			a.navbar-link(href="#",data-toggle="modal",data-target="#signupModal") Sign Up
-			span &nbsp;|&nbsp;
-			a.navbar-link(href="#",data-toggle="modal",data-target="#signinModal") Sign In
+		if user
+			p.navbar-text.navbar-right
+				span Welcome,#{user.name}
+				span &nbsp;|&nbsp;
+				a.navbar-link(href="/admin/user/signout") Sign Out
+		else
+			p.navbar-text.navbar-right
+				a.navbar-link(href="#",data-toggle="modal",data-target="#signupModal") Sign Up
+				span &nbsp;|&nbsp;
+				a.navbar-link(href="#",data-toggle="modal",data-target="#signinModal") Sign In
 
 #signupModal.modal.fade
 	.modal-dialog

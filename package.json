@@ -16,21 +16,29 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "connect-mongo": "^2.0.1",
     "express": "^4.16.2",
+    "express-session": "^1.15.6",
     "jade": "^1.11.0",
     "moment": "^2.21.0",
     "mongoose": "^5.0.4",
+    "morgan": "^1.9.0",
     "pug": "^2.0.0-rc.4",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "body-parser": "^1.18.2",
-    "cookie-parser": "^1.4.3",
-    "cookie-session": "^2.0.0-beta.3",
-    "express-session": "^1.15.6",
     "grunt": "^1.0.2",
     "grunt-concurrent": "^2.3.1",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-nodemon": "^0.4.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/13297960275/nodemovie.git"
+  },
+  "bugs": {
+    "url": "https://github.com/13297960275/nodemovie/issues"
+  },
+  "homepage": "https://github.com/13297960275/nodemovie#readme"
 }
