@@ -11,7 +11,7 @@ var dbUrl = 'mongodb://localhost/movie';
 
 mongoose.connect(dbUrl);
 
-app.set('views', './views/pages');
+app.set('views', './app/views/pages');
 app.set('view engine', 'jade');
 app.use(bodyParser.urlencoded({
 	extended: true
