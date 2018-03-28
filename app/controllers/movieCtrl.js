@@ -18,7 +18,8 @@ exports.movieDetail = function(req, res) {
 				res.render('movie/detail', {
 					title: 'detail',
 					movie: movie,
-					comments: comments
+					comments: comments,
+					comment: new Comment()
 				})
 			})
 	})
