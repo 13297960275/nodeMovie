@@ -2,8 +2,8 @@ var indexCtrl = require('../app/controllers/indexCtrl');
 var movieCtrl = require('../app/controllers/movieCtrl');
 var userCtrl = require('../app/controllers/userCtrl');
 var logCtrl = require('../app/controllers/logCtrl');
+var commentCtrl = require('../app/controllers/commentCtrl');
 var _ = require('underscore');
-var Log = require('../app/models/log');
 
 module.exports = function(app) {
 
@@ -11,23 +11,14 @@ module.exports = function(app) {
 	app.use(function(req, res, next) {
 		// console.log('pre req.path==' + req.path);
 		// console.log('pre req.ip==' + req.ip);
-
-		var log = new Log({
-			path: req.path,
-			ip: req.ip
-		})
-		log.save(function(err, log) {
-			if (err) {
-				console.log(err);
-			}
-		})
+		logCtrl.saveLogFun(req, res);
 
 		// console.log('pre session==' + JSON.stringify(req.session.user));
 
 		var _user = req.session.user;
-		// if (_user) {
+		if (_user) {
 			app.locals.user = _user;
-		// }
+		}
 		return next();
 	})
 
@@ -35,34 +26,40 @@ module.exports = function(app) {
 	app.get('/', indexCtrl.index);
 
 	//  movie detail page
-	app.get('/movie/:id', movieCtrl.movieDetail);
+	app.get('/movie/:id', userCtrl.userSignInRequired, movieCtrl.movieDetail);
 
 	/*movie module page*/
 
 	//  admin movie list page
-	app.get('/admin/movie/list', movieCtrl.getMovies);
+	app.get('/admin/movie/list', userCtrl.userSignInRequired, userCtrl.userAdminRequired, movieCtrl.getMovies);
 
 	// admin update movie page
-	app.get('/admin/movie/:id', movieCtrl.editMovie);
+	app.get('/admin/movie/:id', userCtrl.userSignInRequired, userCtrl.userAdminRequired, movieCtrl.editMovie);
 
 	//  admin add movie page
-	app.get('/admin/movie', movieCtrl.addMovie);
+	app.get('/admin/movie', userCtrl.userSignInRequired, userCtrl.userAdminRequired, movieCtrl.addMovie);
 
 	/*movie module fun*/
 
 	//  admin update movie func
-	app.post('/admin/movie/edit/:id', movieCtrl.editMovieFun);
+	app.post('/admin/movie/edit/:id', userCtrl.userSignInRequired, userCtrl.userAdminRequired, movieCtrl.editMovieFun);
 
 	// admin add movie fun
-	app.post('/admin/movie/add', movieCtrl.addMovieFun);
+	app.post('/admin/movie/add', userCtrl.userSignInRequired, userCtrl.userAdminRequired, movieCtrl.addMovieFun);
 
 	//  admin delete movie fun
-	app.delete('/admin/movie/del', movieCtrl.delMovieFun);
+	app.delete('/admin/movie/del', userCtrl.userSignInRequired, userCtrl.userAdminRequired, movieCtrl.delMovieFun);
 
 	/*user module page*/
 
 	//  admin user list page
-	app.get('/admin/user/list', userCtrl.getUsers);
+	app.get('/admin/user/list', userCtrl.userSignInRequired, userCtrl.userAdminRequired, userCtrl.getUsers);
+
+	// user sign up fun
+	app.get('/admin/user/signup', userCtrl.signUp);
+
+	// user sign up
+	app.get('/admin/user/signin', userCtrl.signIn);
 
 	/*user module fun*/
 
@@ -73,12 +70,18 @@ module.exports = function(app) {
 	app.post('/admin/user/signin', userCtrl.signInFun);
 
 	//  admin delete user fun
-	app.delete('/admin/user/del', userCtrl.delUserFun);
+	app.delete('/admin/user/del', userCtrl.userSignInRequired, userCtrl.userAdminRequired, userCtrl.delUserFun);
 
 	//  admin user signout fun
-	app.get('/admin/user/signout', userCtrl.signOutFun);
+	app.get('/admin/user/signout', function(req, res) {
+		delete app.locals.user;
+
+		userCtrl.signOutFun(req, res);
+	});
 
 	/*admin log list page*/
-	app.get('/admin/log/list', logCtrl.getLogs);
+	app.get('/admin/log/list', userCtrl.userSignInRequired, userCtrl.userAdminRequired, logCtrl.getLogs);
 
+	/* comment */
+	app.post('/admin/comment', userCtrl.userSignInRequired, userCtrl.userAdminRequired, commentCtrl.addComment);
 }

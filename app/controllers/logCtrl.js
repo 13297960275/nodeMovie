@@ -14,3 +14,19 @@ exports.getLogs = function(req, res) {
 		})
 	})
 }
+
+/*admin save log fun*/
+exports.saveLogFun = function(req, res) {
+	// console.log('saveLogFun');
+	// console.log('pre req.path==' + req.path);
+	// console.log('pre req.ip==' + req.ip);
+	var log = new Log({
+		path: req.path,
+		ip: req.ip
+	})
+	log.save(function(err, log) {
+		if (err) {
+			console.log(err);
+		}
+	})
+}

@@ -11,11 +11,15 @@ var dbUrl = 'mongodb://localhost/movie';
 
 mongoose.connect(dbUrl);
 
+// 视图路径及解析模板
 app.set('views', './app/views/pages');
 app.set('view engine', 'jade');
+
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
+
+// session及session持久化
 app.use(session({
 	secret: 'movie',
 	store: new mongoStore({
@@ -24,12 +28,13 @@ app.use(session({
 	})
 }));
 
-if ('development' === app.get('env')) {
-	app.set('showStackError', true);
-	app.use(logger(':method :url :status'));
-	app.locals.pertty = true;
-	mongoose.set('debug', true);
-}
+// Dev环境http请求、数据库操作等log
+// if ('development' === app.get('env')) {
+// 	app.set('showStackError', true);
+// 	app.use(logger(':method :url :status'));
+// 	app.locals.pertty = true;
+// 	mongoose.set('debug', true);
+// }
 
 require('./config/routes')(app);
 

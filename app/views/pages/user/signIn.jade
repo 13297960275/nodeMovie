@@ -1,0 +1,21 @@
+extends ../../layout
+
+block content
+	.container
+		.row
+			h3 #{title}
+	.container
+		.row
+			form.form-horizontal(method="POST",action="/admin/user/signin")
+				.form-group
+					label.col-sm-2.control-label(for="signinName") Name
+					.col-sm-8
+						input#signinName.form-control(name="user[name]",type="text")
+
+				.form-group
+					label.col-sm-2.control-label(for="signinPwd") Password
+					.col-sm-8
+						input#signinPwd.form-control(name="user[password]",type="text")
+				.col-sm-offset-2
+					a.btn.btn-default(href="/",type="button") Cancel
+					button.btn.btn-success(type="submit") Submit
