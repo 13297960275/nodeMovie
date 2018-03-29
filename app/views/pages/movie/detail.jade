@@ -16,16 +16,36 @@ block content
 							each item in comments
 								li.media
 									.pull-left
-										img.media-object(src="",style="width:64px;height:64px;")
-										h5.media-heading #{item.from.name}
+										a.comment(href="#comments",data-cid="#{item._id}",data-tid="#{item.from._id}")
+											img.media-object(src="",style="width:48px;height:48px;")
+									.media-body
+										h4.media-heading #{item.from.name} 
 										p #{item.content}
-						hr
-				form(method="POST",action="/admin/comment")
-					input(type="hidden",name="comment[movie]",value="#{movie._id}")
-					input(type="hidden",name="comment[from]",value="#{user._id}")
-					.form-group
-						textarea.form-control(type="text",name="comment[content]",value="#{comment.content}",row="3")
-					button.btn.btn-primary(type="submit") Submit
+										if item.reply && item.reply.length > 0
+											each reply in item.reply
+												.media
+													.pull-left
+														a.comment(href="#comments",data-cid="#{item._id}",data-tid="#{reply.from._id}")
+															img.media-object(src="",style="width:48px;height:48px;")
+													.media-body
+														h4.media-heading
+															| #{reply.from.name} 
+															span.text-info reply 
+															| #{reply.to.name} : 
+														p #{reply.content}
+								hr
+				#comments
+					form(method="POST",action="/admin/comment")
+						#inputHidden
+							input(type="hidden",name="comment[movie]",value="#{movie._id}")
+							if user
+								input(type="hidden",name="comment[from]",value="#{user._id}")
+						.form-group
+							textarea.form-control(type="text",name="comment[content]",row="3")
+						if user
+							button.btn.btn-primary(type="submit") Submit
+						else 
+							a.btn.btn-default(href="#",data-toggle="modal",data-target="#signinModal") Comment with Sign in
 			.col-md-5
 				.dl-horizontal
 					dt 电影
@@ -40,3 +60,4 @@ block content
 					dd= movie.year
 					dt 简介
 					dd= movie.summary
+	script(src="/js/detail.js")

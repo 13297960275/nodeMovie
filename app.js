@@ -29,12 +29,12 @@ app.use(session({
 }));
 
 // Dev环境http请求、数据库操作等log
-if ('development' === app.get('env')) {
-	app.set('showStackError', true);
-	app.use(logger(':method :url :status'));
-	app.locals.pertty = true;
-	mongoose.set('debug', true);
-}
+// if ('development' === app.get('env')) {
+// 	app.set('showStackError', true);
+// 	app.use(logger(':method :url :status'));
+// 	app.locals.pertty = true;
+// 	mongoose.set('debug', true);
+// }
 
 require('./config/routes')(app);
 

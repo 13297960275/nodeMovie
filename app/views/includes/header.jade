@@ -20,40 +20,40 @@
 				//- span &nbsp;|&nbsp;
 				//- a.navbar-link(href="#",data-toggle="modal",data-target="#signinModal") Sign In
 
-//- #signupModal.modal.fade
-//- 	.modal-dialog
-//- 		.modal-content
-//- 			form(method="POST",action="/admin/user/signup")
-//- 				.modal-header
-//- 					button.close(type="button" class="" data-dismiss="modal" aria-hidden="true") &times;
-//- 					h4.modal-title Sign Up
-//- 				.modal-body
-//- 					.form-group
-//- 						label(for="signupName") Name
-//- 						input#signupName.form-control(name="user[name]",type="text")
+#signupModal.modal.fade
+	.modal-dialog
+		.modal-content
+			form(method="POST",action="/admin/user/signup")
+				.modal-header
+					button.close(type="button" class="" data-dismiss="modal" aria-hidden="true") &times;
+					h4.modal-title Sign Up
+				.modal-body
+					.form-group
+						label(for="signupName") Name
+						input#signupName.form-control(name="user[name]",type="text")
 
-//- 					.form-group
-//- 						label(for="signupPwd") Password
-//- 						input#signupPwd.form-control(name="user[password]",type="text")
-//- 				.modal-footer
-//- 					button.btn.btn-default(type="button",data-dismiss="modal") Cancel
-//- 					button.btn.btn-success(type="submit") Submit
+					.form-group
+						label(for="signupPwd") Password
+						input#signupPwd.form-control(name="user[password]",type="text")
+				.modal-footer
+					button.btn.btn-default(type="button",data-dismiss="modal") Cancel
+					button.btn.btn-success(type="submit") Submit
 
-//- #signinModal.modal.fade
-//- 	.modal-dialog
-//- 		.modal-content
-//- 			form(method="POST",action="/admin/user/signin")
-//- 				.modal-header
-//- 					button.close(type="button" class="" data-dismiss="modal" aria-hidden="true") &times;
-//- 					h4.modal-title Sign In
-//- 				.modal-body
-//- 					.form-group
-//- 						label(for="signinName") Name
-//- 						input#signinName.form-control(name="user[name]",type="text")
+#signinModal.modal.fade
+	.modal-dialog
+		.modal-content
+			form(method="POST",action="/admin/user/signin")
+				.modal-header
+					button.close(type="button" class="" data-dismiss="modal" aria-hidden="true") &times;
+					h4.modal-title Sign In
+				.modal-body
+					.form-group
+						label(for="signinName") Name
+						input#signinName.form-control(name="user[name]",type="text")
 
-//- 					.form-group
-//- 						label(for="signinPwd") Password
-//- 						input#signinPwd.form-control(name="user[password]",type="text")
-//- 				.modal-footer
-//- 					button.btn.btn-default(type="button",data-dismiss="modal") Cancel
-//- 					button.btn.btn-success(type="submit") Submit
+					.form-group
+						label(for="signinPwd") Password
+						input#signinPwd.form-control(name="user[password]",type="text")
+				.modal-footer
+					button.btn.btn-default(type="button",data-dismiss="modal") Cancel
+					button.btn.btn-success(type="submit") Submit

@@ -1,28 +1,30 @@
-extends ../layout
+extends ../../layout
 
 block content
 	.container
 		.row
 			h3 #{title}
 	.container
-		//- .row
-		//- 	a.btn.btn-primary(target="_blank",href="/admin/user") add
+		.row
+			a.btn.btn-primary(target="_blank",href="/admin/category/add") add
 		.row
 			table.table.table-hover.table-bordered
 				thead
 					tr
 						th name
+						th intro
 						th updateAt
-						th view
+						//- th view
 						th update
 						th delete
 				tbody
 					each item in users
 						tr(id="tr-#{item._id}")
 							th #{item.name}
+							th #{item.intro}
 							th #{moment(item.meta.updateAt).format('YYYY MM DD')}
-							th 
-								a(target="_blank",href="/admin/user/#{item._id}") view
+							//- th 
+							//- 	a(target="_blank",href="/admin/user/#{item._id}") view
 							th 
 								a(target="_blank",href="/admin/user/edit/#{item._id}") update
 							th 

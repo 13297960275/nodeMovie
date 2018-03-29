@@ -6,7 +6,6 @@ var _ = require('underscore');
 //  movie detail page
 exports.movieDetail = function(req, res) {
 	var id = req.params.id;
-	// res.render(id);
 	// console.log(id);
 	Movie.findById(id, function(err, movie) {
 		Comment
@@ -14,12 +13,14 @@ exports.movieDetail = function(req, res) {
 				movie: id
 			})
 			.populate('from', "name")
+			.populate('reply.from reply.to', "name")
 			.exec(function(err, comments) {
+				// console.log('comments == ' + JSON.stringify(comments));
+
 				res.render('movie/detail', {
 					title: 'detail',
 					movie: movie,
-					comments: comments,
-					comment: new Comment()
+					comments: comments
 				})
 			})
 	})
@@ -32,7 +33,7 @@ exports.getMovies = function(req, res) {
 	// console.log('req==' + req);
 
 	Movie.fetch(function(err, movies) {
-		console.log('====');
+		// console.log('====');
 
 		if (err) {
 			console.log(err);

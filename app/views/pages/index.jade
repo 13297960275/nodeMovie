@@ -6,12 +6,19 @@ block content
 			h3 #{title}
 	.container
 		.row
-			each item in movies
-				.col-md-2
-					.thumbnail
-						p(href="/movie/#{item._id}")
-							img(src="#{item.poster}",alt="#{item.title}")
-						.caption
-							h3 #{item.title}
-							p(style="width:100%;")
-								a.glyphicon.glyphicon-play(href="/movie/#{item._id}",style="font-size: 2rem;left:80%;")
+			each cat in categories
+				.panel.panel-primary
+					.panel-heading
+						h3 #{cat.name}
+							small #{cat.intro}
+					.panel-body
+						if cat.movies && cat.movies.length > 0
+							each item in movies
+								.col-md-2
+									.thumbnail
+										p(href="/movie/#{item._id}")
+											img(src="#{item.poster}",alt="#{item.title}")
+										.caption
+											h3 #{item.title}
+											p(style="width:100%;")
+												a.glyphicon.glyphicon-play(href="/movie/#{item._id}",style="font-size: 2rem;left:80%;")

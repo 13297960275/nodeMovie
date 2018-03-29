@@ -3,6 +3,7 @@ var movieCtrl = require('../app/controllers/movieCtrl');
 var userCtrl = require('../app/controllers/userCtrl');
 var logCtrl = require('../app/controllers/logCtrl');
 var commentCtrl = require('../app/controllers/commentCtrl');
+var categoryCtrl = require('../app/controllers/categoryCtrl');
 var _ = require('underscore');
 
 module.exports = function(app) {
@@ -26,7 +27,7 @@ module.exports = function(app) {
 	app.get('/', indexCtrl.index);
 
 	//  movie detail page
-	app.get('/movie/:id', userCtrl.userSignInRequired, movieCtrl.movieDetail);
+	app.get('/movie/:id', movieCtrl.movieDetail);
 
 	/*movie module page*/
 
@@ -83,5 +84,14 @@ module.exports = function(app) {
 	app.get('/admin/log/list', userCtrl.userSignInRequired, userCtrl.userAdminRequired, logCtrl.getLogs);
 
 	/* comment */
-	app.post('/admin/comment', userCtrl.userSignInRequired, userCtrl.userAdminRequired, commentCtrl.addComment);
+	app.post('/admin/comment', userCtrl.userSignInRequired, commentCtrl.addComment);
+
+	/* add category page*/
+	app.get('/admin/category/add', userCtrl.userSignInRequired, userCtrl.userAdminRequired, categoryCtrl.addCategory);
+
+	/* category list page*/
+	app.get('/admin/category/list', userCtrl.userSignInRequired, userCtrl.userAdminRequired, categoryCtrl.getCategories);
+
+	/* add category fun*/
+	app.post('/admin/category/add', userCtrl.userSignInRequired, userCtrl.userAdminRequired, categoryCtrl.addCategoryFun);
 }
