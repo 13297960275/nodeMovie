@@ -7,18 +7,18 @@ block content
 	.container
 		.row
 			each cat in categories
-				.panel.panel-primary
+				.panel.panel-info
 					.panel-heading
-						h3 #{cat.name}
-							small #{cat.intro}
+						h4 #{cat.name}
+							small &nbsp;|&nbsp; #{cat.intro}
 					.panel-body
 						if cat.movies && cat.movies.length > 0
-							each item in movies
-								.col-md-2
+							each item in cat.movies
+								.col-md-2.col-sm-4.col-xs-6
 									.thumbnail
-										p(href="/movie/#{item._id}")
-											img(src="#{item.poster}",alt="#{item.title}")
-										.caption
-											h3 #{item.title}
-											p(style="width:100%;")
-												a.glyphicon.glyphicon-play(href="/movie/#{item._id}",style="font-size: 2rem;left:80%;")
+										a(href="/movie/#{item._id}")
+											img(src="#{item.poster}",alt="#{item.title}",style="height:160px;widrh:100px;")
+										.caption(style="width:100%;")
+											h5 #{item.title}
+											a.glyphicon.glyphicon-play(href="/movie/#{item._id}",style="position:relative;font-size: 2rem;left:80%;buttom:20%;")
+

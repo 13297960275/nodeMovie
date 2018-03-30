@@ -94,4 +94,7 @@ module.exports = function(app) {
 
 	/* add category fun*/
 	app.post('/admin/category/add', userCtrl.userSignInRequired, userCtrl.userAdminRequired, categoryCtrl.addCategoryFun);
+
+	/* delete category fun*/
+	app.delete('/admin/category/del', userCtrl.userSignInRequired, userCtrl.userAdminRequired, categoryCtrl.delCategoryFun);
 }

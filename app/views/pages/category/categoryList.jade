@@ -18,15 +18,15 @@ block content
 						th update
 						th delete
 				tbody
-					each item in users
+					each item in categories
 						tr(id="tr-#{item._id}")
 							th #{item.name}
 							th #{item.intro}
 							th #{moment(item.meta.updateAt).format('YYYY MM DD')}
 							//- th 
-							//- 	a(target="_blank",href="/admin/user/#{item._id}") view
+								a(target="_blank",href="/admin/user/#{item._id}") view
 							th 
 								a(target="_blank",href="/admin/user/edit/#{item._id}") update
 							th 
-								button.btn.btn-danger.del(onclick="del(2,this)",type="button",data-id="#{item._id}") delete
+								button.btn.btn-danger.del(onclick="del(3,this)",type="button",data-id="#{item._id}") delete
 	script(src="/js/admin.js")

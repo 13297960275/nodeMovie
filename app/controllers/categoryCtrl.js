@@ -3,7 +3,11 @@ var Category = require('../models/category');
 /* add category page*/
 exports.addCategory = function(req, res) {
 	res.render('category/category', {
-		title: 'category'
+		title: 'category',
+		category: {
+			name: '',
+			intro: ''
+		}
 	})
 }
 
@@ -35,4 +39,23 @@ exports.addCategoryFun = function(req, res) {
 
 		res.redirect('/admin/category/list');
 	})
+}
+
+/* delete category fun*/
+exports.delCategoryFun = function(req, res) {
+	var id = req.query.id;
+	// console.log(id);
+	if (id) {
+		Category.remove({
+			_id: id
+		}, function(err, category) {
+			if (err) {
+				console.log(err);
+			} else {
+				res.json({
+					success: 1
+				});
+			}
+		})
+	}
 }

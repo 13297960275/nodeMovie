@@ -14,6 +14,7 @@ exports.index = function(req, res) {
 			}
 		})
 		.exec(function(err, categories) {
+			console.log('categories == ' + categories);
 			res.render('index', {
 				title: 'index',
 				categories: categories

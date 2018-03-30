@@ -7,11 +7,32 @@ block content
 	.container
 		.row
 			form.form-horizontal(method="post",action="/admin/movie/add")
-				input(type="hidden",name="movie[_id]" value="#{movie._id}")
+				.form-group
+					label.col-sm-2.control-label douban
+					.col-sm-10
+						input#douban.form-control(type="text")
+				if movie._id
+					input(type="hidden",name="movie[_id]" value="#{movie._id}")
 				.form-group
 					label.col-sm-2.control-label(for="category") category
 					.col-sm-10
-						input#category.form-control(type="text",name="movie[category]",value="#{movie.category}")
+						//- input#category.form-control(type="text",name="movie[category]",value=movie.categoryName)
+						//- .col-sm-6.form-inline
+						//- 	label.control-label.col-sm-2(for="name") name
+						//- 	.col-sm-10
+						//- 		input.form-control#name(type="text",name="movie[category]",value=movie.categoryName)
+						//- .col-sm-6.form-inline
+						//- 	label.control-label.col-sm-2(for="intro") intro
+						//- 	.col-sm-10
+						//- 		input.form-control#intro(type="text",name="movie[category]",value=movie.categoryIntro)
+						each cat in categories
+							label.radio-inline
+								if movie._id
+									input(type="radio",name="movie[category]",value="#{cat._id}",checked=cat._id.toString() == movie.category.toString()) 
+									| #{cat.name}
+								else
+									input(type="radio",name="movie[category]",value="#{cat._id}") 
+									| #{cat.name}	
 				.form-group
 					label.col-sm-2.control-label(for="title") title
 					.col-sm-10
@@ -19,31 +40,32 @@ block content
 				.form-group
 					label.col-sm-2.control-label(for="doctor") doctor
 					.col-sm-10
-						input#title.form-control(type="text",name="movie[doctor]",value="#{movie.doctor}")
+						input#doctor.form-control(type="text",name="movie[doctor]",value="#{movie.doctor}")
 				.form-group
 					label.col-sm-2.control-label(for="country") country
 					.col-sm-10
-						input#title.form-control(type="text",name="movie[country]",value="#{movie.country}")
+						input#country.form-control(type="text",name="movie[country]",value="#{movie.country}")
 				.form-group
 					label.col-sm-2.control-label(for="language") language
 					.col-sm-10
-						input#title.form-control(type="text",name="movie[language]",value="#{movie.language}")
+						input#language.form-control(type="text",name="movie[language]",value="#{movie.language}")
 				.form-group
 					label.col-sm-2.control-label(for="poster") poster
 					.col-sm-10
-						input#title.form-control(type="text",name="movie[poster]",value="#{movie.poster}")
+						input#poster.form-control(type="text",name="movie[poster]",value="#{movie.poster}")
 				.form-group
 					label.col-sm-2.control-label(for="flash") flash
 					.col-sm-10
-						input#title.form-control(type="text",name="movie[flash]",value="#{movie.flash}")
+						input#flash.form-control(type="text",name="movie[flash]",value="#{movie.flash}")
 				.form-group
 					label.col-sm-2.control-label(for="year") year
 					.col-sm-10
-						input#title.form-control(type="text",name="movie[year]",value="#{movie.year}")
+						input#year.form-control(type="text",name="movie[year]",value="#{movie.year}")
 				.form-group
 					label.col-sm-2.control-label(for="summary") summary
 					.col-sm-10
-						input#title.form-control(type="text",name="movie[summary]",value="#{movie.summary}")
+						input#summary.form-control(type="text",name="movie[summary]",value="#{movie.summary}")
 				.form-group
 					.col-sm-10.col-sm-offset-2
 						button.btn.btn-info(type="submit") submit
+	script(src="/js/admin.js")
