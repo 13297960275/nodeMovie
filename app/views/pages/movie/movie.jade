@@ -7,32 +7,38 @@ block content
 	.container
 		.row
 			form.form-horizontal(method="post",action="/admin/movie/add")
-				.form-group
-					label.col-sm-2.control-label douban
-					.col-sm-10
-						input#douban.form-control(type="text")
 				if movie._id
 					input(type="hidden",name="movie[_id]" value="#{movie._id}")
+				else 
+					.form-group
+						label.col-sm-2.control-label douban
+						.col-sm-10
+							input#douban.form-control(type="text")					
 				.form-group
 					label.col-sm-2.control-label(for="category") category
 					.col-sm-10
-						//- input#category.form-control(type="text",name="movie[category]",value=movie.categoryName)
-						//- .col-sm-6.form-inline
-						//- 	label.control-label.col-sm-2(for="name") name
-						//- 	.col-sm-10
-						//- 		input.form-control#name(type="text",name="movie[category]",value=movie.categoryName)
-						//- .col-sm-6.form-inline
-						//- 	label.control-label.col-sm-2(for="intro") intro
-						//- 	.col-sm-10
-						//- 		input.form-control#intro(type="text",name="movie[category]",value=movie.categoryIntro)
-						each cat in categories
-							label.radio-inline
-								if movie._id
-									input(type="radio",name="movie[category]",value="#{cat._id}",checked=cat._id.toString() == movie.category.toString()) 
-									| #{cat.name}
-								else
-									input(type="radio",name="movie[category]",value="#{cat._id}") 
-									| #{cat.name}	
+						if !movie._id	
+							input#catSelext(type="checkbox",value="") 
+							| Custom												
+							#inputCategory
+								//- input#category.form-control(type="text",name="movie[category]",value=movie.categoryName)
+								.col-sm-6.form-inline
+									label.control-label.col-sm-2(for="name") name
+									.col-sm-10
+										input.form-control#catName(type="text",name="movie[categoryName]",value=movie.categoryName)
+								.col-sm-6.form-inline
+									label.control-label.col-sm-2(for="intro") intro
+									.col-sm-10
+										input.form-control#catIntro(type="text",name="movie[categoryIntro]",value=movie.categoryName)
+						#selectCategory
+							each cat in categories
+								label.radio-inline
+									if movie._id
+										input(type="radio",name="catRadio",value="#{cat._id}",checked=cat._id.toString() == movie.category.toString()) 
+										| #{cat.name}
+									else
+										input.catSelext(type="radio",name="catRadio",value="#{cat._id}") 
+										| #{cat.name}	
 				.form-group
 					label.col-sm-2.control-label(for="title") title
 					.col-sm-10

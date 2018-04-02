@@ -109,9 +109,9 @@ exports.addMovieFun = function(req, res) {
 	var movieObj = req.body.movie;
 	var _movie;
 	console.log(movieObj);
-	console.log(id);
+	// console.log(id);
 
-	if (id) {
+	if (id) { // 有movie id则编辑，没有则新增
 		// console.log("1");
 
 		Movie.findById(id, function(err, movie) {
@@ -130,10 +130,12 @@ exports.addMovieFun = function(req, res) {
 			})
 		})
 	} else {
-		// console.log("2");
+		console.log("2");
 		_movie = new Movie(movieObj);
 
-		var categoryId = _movie.category;
+		var categoryId = movieObj.category;
+		var categoryName = movieObj.categoryName;
+		var categoryIntro = movieObj.categoryIntro;
 
 		// console.log(_movie);
 		_movie.save(function(err, movie) {
@@ -142,18 +144,32 @@ exports.addMovieFun = function(req, res) {
 			}
 			// console.log(movie);
 
-			Category.findById(categoryId, function(err, category) {
+			if (categoryId) {
+				Category.findById(categoryId, function(err, category) {
 
-				category.movies.push(movie._id);
+					category.movies.push(movie._id);
+					category.save(function(err, category) {
+						// if (err) {
+						// 	console.log(err);
+						// }
+						res.redirect('/movie/' + movie._id);
+						// res.redirect('/admin/movie');
+					})
+				})
+			} else {
+				var category = new Category({
+					name: categoryName,
+					intro: categoryIntro,
+					movies: movie._id
+				})
 				category.save(function(err, category) {
 					// if (err) {
 					// 	console.log(err);
 					// }
-					// res.redirect('/movie/' + movie._id);
-					res.redirect('/admin/movie');
+					res.redirect('/movie/' + movie._id);
+					// res.redirect('/admin/movie');
 				})
-			})
-
+			}
 		})
 	}
 }

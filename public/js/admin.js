@@ -19,6 +19,7 @@ $(function() {
 				});
 		})*/
 
+	// 豆瓣录入电影
 	$('#douban').blur(function() {
 		var douban = $(this);
 		var id = douban.val();
@@ -43,6 +44,24 @@ $(function() {
 				}
 			})
 		} else {}
+	})
+
+	// 电影分类是否自定义添加
+	$('#catSelext').change(function() {
+		if ($(this).is(":checked")) {// 选中自定义则认为输入分类信息，否则就从分类列表中选择
+			$('#inputCategory').show();
+			$('#selectCategory').hide();
+			// attr方法主要处理自定义的DOM属性。
+			// prop方法主要处理本身就带有的固有属性。
+			// $('input:radio[name="catRadio"]').removeAttr('checked');
+			// $('input:radio[name="catRadio"]').attr("checked",false); 
+			$('input:radio[name="catRadio"]').prop("checked", false);
+		} else {
+			$('#inputCategory').hide();
+			$('#selectCategory').show();
+			$('#catIntro').val('');
+			$('#catName').val('');
+		}
 	})
 })
 
@@ -72,8 +91,4 @@ function del(type, e) {
 				}
 			}
 		});
-}
-
-function getMovies() {
-	$('#douban')
 }
