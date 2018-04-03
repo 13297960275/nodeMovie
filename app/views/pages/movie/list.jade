@@ -1,9 +1,9 @@
 extends ../../layout
 
 block content
-	.container
-		.row
-			h3 #{title}
+	//- .container
+	//- 	.row
+	//- 		h3 #{title}
 	.container
 		.row
 			a.btn.btn-primary(target="_blank",href="/admin/movie") add
@@ -16,6 +16,7 @@ block content
 						th country
 						th year
 						th updateAt
+						th pv
 						th view
 						th update
 						th delete
@@ -27,6 +28,7 @@ block content
 							th #{item.country}
 							th #{item.year}
 							th #{moment(item.meta.updateAt).format('YYYY MM DD')}
+							th #{item.pv}
 							th 
 								a(target="_blank",href="/movie/#{item._id}") view
 							th 

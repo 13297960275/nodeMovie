@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+	//- .container
+	//- 	.row
+	//- 		h3 #{title}
+	.container
+		.row
+			.panel.panel-info
+				.panel-heading
+					h4 #{keywords}
+						small &nbsp;|&nbsp; #{intro}
+				.panel-body
+					if movies && movies.length > 0
+						each item in movies
+							.col-md-2.col-sm-4.col-xs-6
+								.thumbnail
+									a(href="/movie/#{item._id}")
+										img(src="#{item.poster}",alt="#{item.title}",style="height:160px;widrh:100px;")
+									.caption(style="width:100%;")
+										h5.text-overflow #{item.title}
+										a.glyphicon.glyphicon-play(href="/movie/#{item._id}",style="position:relative;font-size: 2rem;left:80%;buttom:20%;")
+			ul.pagination
+				- for (var i = 0; i < totalPage; i++) {
+					- if (currentPage == i + 1) {
+						li.active
+							span #{currentPage}
+					- } else {
+						li
+							a(href='/search?#{query}&page=#{i}') #{i + 1}
+					- }
+				- }
+

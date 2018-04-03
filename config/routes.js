@@ -46,7 +46,7 @@ module.exports = function(app) {
 	app.post('/admin/movie/edit/:id', userCtrl.userSignInRequired, userCtrl.userAdminRequired, movieCtrl.editMovieFun);
 
 	// admin add movie fun
-	app.post('/admin/movie/add', userCtrl.userSignInRequired, userCtrl.userAdminRequired, movieCtrl.addMovieFun);
+	app.post('/admin/movie/add', userCtrl.userSignInRequired, userCtrl.userAdminRequired, /*movieCtrl.upload,*/ movieCtrl.addMovieFun);
 
 	//  admin delete movie fun
 	app.delete('/admin/movie/del', userCtrl.userSignInRequired, userCtrl.userAdminRequired, movieCtrl.delMovieFun);
@@ -97,4 +97,7 @@ module.exports = function(app) {
 
 	/* delete category fun*/
 	app.delete('/admin/category/del', userCtrl.userSignInRequired, userCtrl.userAdminRequired, categoryCtrl.delCategoryFun);
+
+	/* get category by page fun*/
+	app.get('/search', indexCtrl.getCategoryBypage);
 }

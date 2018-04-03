@@ -1,9 +1,9 @@
 extends ../../layout
 
 block content
-	.container
-		.row
-			h3 #{title}
+	//- .container
+	//- 	.row
+	//- 		h3 #{title}
 	.container
 		.row
 			.col-md-7
@@ -54,10 +54,12 @@ block content
 					dd= movie.doctor
 					dt 国家
 					dd= movie.country
+					dt pv
+					dd= movie.pv				
 					dt 语言
 					dd= movie.language
 					dt 年份
 					dd= movie.year
 					dt 简介
-					dd= movie.summary
+					dd= movie.summary	
 	script(src="/js/detail.js")

@@ -1,7 +1,4 @@
-//- .container
-//- 	.row
-//- 		.page-header
-//- 			h1 #{title}
+
 .navbar.navbar-default.navbar-fixed-buttom
 	.container
 		.navbar-header
@@ -19,6 +16,18 @@
 				//- a.navbar-link(href="#",data-toggle="modal",data-target="#signupModal") Sign Up
 				//- span &nbsp;|&nbsp;
 				//- a.navbar-link(href="#",data-toggle="modal",data-target="#signinModal") Sign In
+.container
+	.row
+		.page-header.clearfix(style="margin:0;")
+			h3 #{title}
+			.col-md-4
+				seall movie
+			.col-md-8
+				form(action="/search",method="GET")
+					.input-group.col-sm-4.pull-right
+						input.form-control(type="text",name="q")
+						span.input-group-btn
+							button.btn.btn-default(type="submit") Search
 
 #signupModal.modal.fade
 	.modal-dialog

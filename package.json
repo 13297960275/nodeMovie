@@ -20,6 +20,7 @@
     "connect-mongo": "^2.0.1",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
+    "formidable": "^1.2.1",
     "jade": "^1.11.0",
     "moment": "^2.21.0",
     "mongoose": "^5.0.4",
@@ -31,7 +32,9 @@
     "grunt": "^1.0.2",
     "grunt-concurrent": "^2.3.1",
     "grunt-contrib-watch": "^1.0.0",
-    "grunt-nodemon": "^0.4.2"
+    "grunt-mocha-test": "^0.13.3",
+    "grunt-nodemon": "^0.4.2",
+    "should": "^13.2.1"
   },
   "repository": {
     "type": "git",

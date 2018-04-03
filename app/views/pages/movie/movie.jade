@@ -1,25 +1,25 @@
 extends ../../layout
 
 block content
+	//- .container
+	//- 	.row
+	//- 		h3 #{title}
 	.container
 		.row
-			h3 #{title}
-	.container
-		.row
-			form.form-horizontal(method="post",action="/admin/movie/add")
+			form.form-horizontal(method="post",action="/admin/movie/add",enctype="multpart/form-data")
 				if movie._id
 					input(type="hidden",name="movie[_id]" value="#{movie._id}")
 				else 
 					.form-group
 						label.col-sm-2.control-label douban
 						.col-sm-10
-							input#douban.form-control(type="text")					
+							input.form-control#douban(type="text")					
 				.form-group
 					label.col-sm-2.control-label(for="category") category
 					.col-sm-10
 						if !movie._id	
 							input#catSelext(type="checkbox",value="") 
-							| Custom												
+							| Custom					
 							#inputCategory
 								//- input#category.form-control(type="text",name="movie[category]",value=movie.categoryName)
 								.col-sm-6.form-inline
@@ -59,6 +59,10 @@ block content
 					label.col-sm-2.control-label(for="poster") poster
 					.col-sm-10
 						input#poster.form-control(type="text",name="movie[poster]",value="#{movie.poster}")
+				.form-group
+					label.col-sm-2.control-label(for="poster") upload poster
+					.col-sm-10
+						input#uploadPoster(type="file",name="uploadPoster")
 				.form-group
 					label.col-sm-2.control-label(for="flash") flash
 					.col-sm-10

@@ -2,12 +2,29 @@ var Movie = require('../models/movie');
 var Comment = require('../models/comment');
 var Category = require('../models/category');
 var _ = require('underscore');
+var fs = require('fs');
+var path = require('path');
+var formidable = require('formidable');
 
 
 //  movie detail page
 exports.movieDetail = function(req, res) {
 	var id = req.params.id;
 	// console.log(id);
+
+	Movie.update({ // pv +1
+			_id: id
+		}, {
+			$inc: {
+				pv: 1
+			}
+		},
+		function(err, movie) {
+			if (err) {
+				console.log(err);
+			}
+		})
+
 	Movie.findById(id, function(err, movie) {
 		Comment
 			.find({
@@ -103,13 +120,101 @@ exports.editMovieFun = function(req, res) {
 	}
 }
 
+/* upload poster */
+exports.upload = function(req, res, next) {
+	console.log('upload1');
+	//Creates a new incoming form.
+	var form = new formidable.IncomingForm();
+	//设置文件上传存放地址
+	form.uploadDir = __dirname + '../../public/upload/poster/';
+	//执行里面的回调函数的时候，表单已经全部接收完毕了。
+	form.parse(req, function(err, fields, files) {
+		console.log(files);
+		//使用第三方模块silly-datetime
+		var t = new Date();
+		//生成随机数
+		var ran = parseInt(Math.random() * 8999 + 10000);
+		//拿到扩展名
+		var extname = path.extname(files.uploadPoster.name);
+		//旧的路径
+		var oldpath = __dirname + "/" + files.uploadPoster.path;
+		//新的路径
+		var newpath = __dirname + '../../public/upload/poster/' + t + ran + extname;
+		//改名
+		fs.rename(oldpath, newpath, function(err) {
+			if (err) {
+				throw Error("改名失败");
+				next();
+			}
+			next();
+
+		});
+		next();
+	});
+
+	// 事件
+	// progress事件在接收到每一个解析的数据块后触发。 可以根据该事件更新进度条
+	// form.on('progress', function(bytesReceived, bytesExpected) {});
+
+	// field时间在接收到一个字段键值对的时候触发
+	// form.on('field', function(name, value) {});
+
+	// fileBegin事件在一个新文件开始上传时触发， 如果想改变文件上传的路径， 可以在该事件内定义。
+	form.on('fileBegin', function(name, file) {
+		console.log(name + '===fileBegin===' + file)
+	});
+
+	// file事件在接收到一个文件字段值是触发。 file是File的实例
+	// form.on('file', function(name, file) {});
+
+	// error在接收form表单提交的数据发生错误时触发。 如果请求过程中有错误， 该请求将会自动终止。 但是如果你想继续发送请求， 可以使用request.resume() 方法。
+	// form.on('error', function(err) {});
+
+	// ‘ aborted’ 事件是当用户中止请求时触发， 上传时间超时或者通过socket关闭事件也可以触发该事件。 该事件触发后， 将会随着触发error时间
+	// form.on('aborted', function() {});
+
+	// ‘ end’ 时间在请求完全接收后触发， 即文件已被成功存入磁盘。 通过该事件可以发送响应
+	form.on('end', function() {
+		console.log('===end===')
+	});
+}
+
+
+exports.uploadPoster = function(req, res, next) {
+	console.log(req.files);
+	var posterData = req.files.uploadPoster;
+	var filePath = posterData.path;
+	var originalFileName = posterData.originalFileName;
+	console.log(req.files);
+
+	if (originalFileName) {
+		fs.readFile(filePath, function(err, data) {
+			var timeStamp = Date.now();
+			var type = posterData.type.split('/')[1];
+			var poster = timeStamp + '.' + type;
+			var newPath = path.join(__dirname, '../../', '/public/upload/poster');
+
+			fs.writeFile(newPath, data, function(err) {
+				req.poster = poster;
+				next();
+			})
+		})
+	} else {
+		next();
+	}
+}
+
 // admin add movie fun
 exports.addMovieFun = function(req, res) {
 	var id = req.body.movie._id;
 	var movieObj = req.body.movie;
 	var _movie;
-	console.log(movieObj);
+	// console.log(movieObj);
 	// console.log(id);
+
+	if (req.poster) {
+		movieObj.poster = req.poster;
+	}
 
 	if (id) { // 有movie id则编辑，没有则新增
 		// console.log("1");
@@ -161,7 +266,8 @@ exports.addMovieFun = function(req, res) {
 					name: categoryName,
 					intro: categoryIntro,
 					movies: movie._id
-				})
+				});
+				console.log(category);
 				category.save(function(err, category) {
 					// if (err) {
 					// 	console.log(err);
