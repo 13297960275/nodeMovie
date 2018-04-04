@@ -34,17 +34,17 @@ $(function() {
 				jsonp: 'callback',
 				success: function(data) {
 					$('#title').val(data.title),
-						$('#doctor').val(data.directors[0].name),
-						$('#country').val(data.countries[0]),
-						// $('#language').val(data.languages[0]),
-						$('#poster').val(data.images.large),
-						// $('#flash').val(),
-						$('#year').val(data.year),
-						$('#summary').val(data.summary)
+					$('#doctor').val(data.directors[0].name),
+					$('#country').val(data.countries[0]),
+					// $('#language').val(data.languages[0]),
+					$('#poster').val(data.images.large),
+					// $('#flash').val(),
+					$('#year').val(data.year),
+					$('#summary').val(data.summary)
 				}
-			})
-		} else {}
-	})
+			});
+		}
+	});
 
 	// 电影分类是否自定义添加
 	$('#catSelext').change(function() {
@@ -62,21 +62,22 @@ $(function() {
 			$('#catIntro').val('');
 			$('#catName').val('');
 		}
-	})
-})
+	});
+});
 
 function del(type, e) {
 	var id = $(e).attr('data-id');
 	var tr = $('#tr-' + id);
+	var delUrl = '';
 
 	console.log(e, id, tr);
 
 	if (type == 1) {
-		var delUrl = '/admin/movie/del?id=' + id
+		delUrl = '/admin/movie/del?id=' + id;
 	} else if (type == 2) {
-		var delUrl = '/admin/user/del?id=' + id
+		delUrl = '/admin/user/del?id=' + id;
 	} else if (type == 3) {
-		var delUrl = '/admin/category/del?id=' + id
+		delUrl = '/admin/category/del?id=' + id;
 	}
 
 	$.ajax({

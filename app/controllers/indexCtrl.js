@@ -18,8 +18,8 @@ exports.index = function(req, res) {
 			res.render('index', {
 				title: 'index',
 				categories: categories
-			})
-		})
+			});
+		});
 	// Movie.fetch(function(err, movies) {
 	// 	if (err) {
 	// 		console.log(err);
@@ -30,7 +30,7 @@ exports.index = function(req, res) {
 	// 		movies: movies
 	// 	})
 	// })
-}
+};
 
 //  get category by page
 exports.getCategoryBypage = function(req, res) {
@@ -69,15 +69,15 @@ exports.getCategoryBypage = function(req, res) {
 					currentPage: pageNO + 1,
 					totalPage: Math.ceil(movies.length / pageSize),
 					movies: results
-				})
-			})
+				});
+			});
 	} else {
 		Movie
 			.find({
 				title: new RegExp(q + '.*', 'i')
 			})
 			.exec(function(err, movies) {
-				var movies = movies || [];
+				movies = movies || [];
 				var results = movies.slice(pageSize * pageNO, pageSize * pageNO + 2);
 				console.log('movies===' + movies);
 
@@ -88,8 +88,8 @@ exports.getCategoryBypage = function(req, res) {
 					currentPage: pageNO + 1,
 					totalPage: Math.ceil(movies.length / pageSize),
 					movies: results
-				})
-			})
+				});
+			});
 	}
 
-}
+};

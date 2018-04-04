@@ -11,9 +11,9 @@ exports.getLogs = function(req, res) {
 		res.render('logList', {
 			title: 'log list',
 			logs: logs
-		})
-	})
-}
+		});
+	});
+};
 
 /*admin save log fun*/
 exports.saveLogFun = function(req, res) {
@@ -23,10 +23,10 @@ exports.saveLogFun = function(req, res) {
 	var log = new Log({
 		path: req.path,
 		ip: req.ip
-	})
+	});
 	log.save(function(err, log) {
 		if (err) {
 			console.log(err);
 		}
-	})
-}
+	});
+};

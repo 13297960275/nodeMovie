@@ -11,7 +11,7 @@ exports.addComment = function(req, res) {
 				from: _comment.from,
 				to: _comment.tid,
 				content: _comment.content
-			}
+			};
 
 			// console.log('comment reply == ' + JSON.stringify(comment.reply));
 
@@ -25,8 +25,8 @@ exports.addComment = function(req, res) {
 				// console.log('comment reply == ' + JSON.stringify(comment));
 
 				res.redirect('/movie/' + movieId);
-			})
-		})
+			});
+		});
 	} else {// 评论
 
 		// var comment = new Comment({
@@ -52,6 +52,6 @@ exports.addComment = function(req, res) {
 			// console.log('comment == ' + JSON.stringify(comment));
 
 			res.redirect('/movie/' + movieId);
-		})
+		});
 	}
-}
+};

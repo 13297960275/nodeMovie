@@ -4,6 +4,10 @@ var userCtrl = require('../app/controllers/userCtrl');
 var logCtrl = require('../app/controllers/logCtrl');
 var commentCtrl = require('../app/controllers/commentCtrl');
 var categoryCtrl = require('../app/controllers/categoryCtrl');
+
+var multiparty = require('connect-multiparty');
+var multipart = multiparty();
+
 var _ = require('underscore');
 
 module.exports = function(app) {
@@ -46,7 +50,7 @@ module.exports = function(app) {
 	app.post('/admin/movie/edit/:id', userCtrl.userSignInRequired, userCtrl.userAdminRequired, movieCtrl.editMovieFun);
 
 	// admin add movie fun
-	app.post('/admin/movie/add', userCtrl.userSignInRequired, userCtrl.userAdminRequired, /*movieCtrl.upload,*/ movieCtrl.addMovieFun);
+	app.post('/admin/movie/add', userCtrl.userSignInRequired, userCtrl.userAdminRequired, multipart, movieCtrl.uploadPoster, movieCtrl.addMovieFun);
 
 	//  admin delete movie fun
 	app.delete('/admin/movie/del', userCtrl.userSignInRequired, userCtrl.userAdminRequired, movieCtrl.delMovieFun);

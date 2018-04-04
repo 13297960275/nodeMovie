@@ -19,7 +19,7 @@ var categorySchema = new Schema({
 			default: Date.now()
 		}
 	}
-})
+});
 
 categorySchema.pre('save', function(next) {
 	if (this.isNew) {
@@ -29,22 +29,22 @@ categorySchema.pre('save', function(next) {
 	}
 
 	next();
-})
+});
 
 categorySchema.statics = {
 	fetch: function(cb) {
 		return this
 			.find({})
 			.sort('meta.updateAt')
-			.exec(cb)
+			.exec(cb);
 	},
 	findById: function(id, cb) {
 		return this
 			.findOne({
 				_id: id
 			})
-			.exec(cb)
+			.exec(cb);
 	}
-}
+};
 
 module.exports = categorySchema;

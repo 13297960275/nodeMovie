@@ -28,7 +28,7 @@ var userSchema = new mongoose.Schema({
 			default: Date.now()
 		}
 	}
-})
+});
 
 userSchema.pre('save', function(next) {
 	var user = this;
@@ -49,11 +49,11 @@ userSchema.pre('save', function(next) {
 			// console.log('user.js===hash=' + hash);
 			user.password = hash;
 			next();
-		})
-	})
+		});
+	});
 
 	// next();// 加上这个会不执行密码加密的操作
-})
+});
 
 userSchema.methods = {
 	comparePassword: function(_pwd, cb) {
@@ -61,24 +61,24 @@ userSchema.methods = {
 			if (err) return cb(err);
 
 			cb(null, isMatch);
-		})
+		});
 	}
-}
+};
 
 userSchema.statics = {
 	fetch: function(cb) {
 		return this
 			.find({})
 			.sort('meta.updateAt')
-			.exec(cb)
+			.exec(cb);
 	},
 	findById: function(id, cb) {
 		return this
 			.findOne({
 				_id: id
 			})
-			.exec(cb)
+			.exec(cb);
 	}
-}
+};
 
 module.exports = userSchema;

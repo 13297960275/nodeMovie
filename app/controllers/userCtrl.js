@@ -12,23 +12,23 @@ exports.getUsers = function(req, res) {
 		res.render('user/userList', {
 			title: 'user list',
 			users: users
-		})
-	})
-}
+		});
+	});
+};
 
 //  admin user list page
 exports.signIn = function(req, res) {
 	res.render('user/signIn', {
 		title: 'user signIn'
-	})
-}
+	});
+};
 
 //  admin user list page
 exports.signUp = function(req, res) {
 	res.render('user/signUp', {
 		title: 'user signUp'
-	})
-}
+	});
+};
 
 /*user module fun*/
 
@@ -62,7 +62,7 @@ exports.signUpFun = function(req, res) {
 			return res.redirect('/admin/user/signin');
 		} else {
 			// console.log('find:user====' + JSON.stringify(user));
-			var user = new User(_user);
+			user = new User(_user);
 			user.save(function(err, user) {
 				if (err) {
 					console.log(err);
@@ -72,10 +72,10 @@ exports.signUpFun = function(req, res) {
 
 					res.redirect('/');
 				}
-			})
+			});
 		}
-	})
-}
+	});
+};
 
 // user sign up
 exports.signInFun = function(req, res) {
@@ -112,9 +112,9 @@ exports.signInFun = function(req, res) {
 				// 密码不匹配，重定向到登录页
 				res.redirect('/admin/user/signin');
 			}
-		})
-	})
-}
+		});
+	});
+};
 
 //  admin delete user fun
 exports.delUserFun = function(req, res) {
@@ -131,9 +131,9 @@ exports.delUserFun = function(req, res) {
 					success: 1
 				});
 			}
-		})
+		});
 	}
-}
+};
 
 //  admin user signout fun
 exports.signOutFun = function(req, res) {
@@ -141,7 +141,7 @@ exports.signOutFun = function(req, res) {
 	// delete app.locals.user;
 
 	res.redirect('/');
-}
+};
 
 // permission control middleware
 
@@ -155,7 +155,7 @@ exports.userSignInRequired = function(req, res, next) {
 	}
 
 	next();
-}
+};
 
 // 管理员角色验证
 exports.userAdminRequired = function(req, res, next) {
@@ -167,4 +167,4 @@ exports.userAdminRequired = function(req, res, next) {
 	}
 
 	next();
-}
+};

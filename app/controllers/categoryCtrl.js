@@ -8,8 +8,8 @@ exports.addCategory = function(req, res) {
 			name: '',
 			intro: ''
 		}
-	})
-}
+	});
+};
 
 /* category list page*/
 exports.getCategories = function(req, res) {
@@ -21,10 +21,10 @@ exports.getCategories = function(req, res) {
 		res.render('category/categoryList', {
 			title: 'category list',
 			categories: categories
-		})
-	})
+		});
+	});
 
-}
+};
 
 /* add category fun*/
 exports.addCategoryFun = function(req, res) {
@@ -38,8 +38,8 @@ exports.addCategoryFun = function(req, res) {
 		}
 
 		res.redirect('/admin/category/list');
-	})
-}
+	});
+};
 
 /* delete category fun*/
 exports.delCategoryFun = function(req, res) {
@@ -56,6 +56,6 @@ exports.delCategoryFun = function(req, res) {
 					success: 1
 				});
 			}
-		})
+		});
 	}
-}
+};

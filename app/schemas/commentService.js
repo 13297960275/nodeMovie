@@ -39,7 +39,7 @@ var commentSchema = new Schema({
 			default: Date.now()
 		}
 	}
-})
+});
 
 commentSchema.pre('save', function(next) {
 	if (this.isNew) {
@@ -49,22 +49,22 @@ commentSchema.pre('save', function(next) {
 	}
 
 	next();
-})
+});
 
 commentSchema.statics = {
 	fetch: function(cb) {
 		return this
 			.find({})
 			.sort('meta.updateAt')
-			.exec(cb)
+			.exec(cb);
 	},
 	findById: function(id, cb) {
 		return this
 			.findOne({
 				_id: id
 			})
-			.exec(cb)
+			.exec(cb);
 	}
-}
+};
 
 module.exports = commentSchema;

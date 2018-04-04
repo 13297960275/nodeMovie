@@ -13,7 +13,7 @@ var logSchema = new mongoose.Schema({
 			default: Date.now()
 		}
 	}
-})
+});
 
 logSchema.pre('save', function(next) {
 	if (this.isNew) {
@@ -23,22 +23,22 @@ logSchema.pre('save', function(next) {
 	}
 
 	next();
-})
+});
 
 logSchema.statics = {
 	fetch: function(cb) {
 		return this
 			.find({})
 			.sort('meta.updateAt')
-			.exec(cb)
+			.exec(cb);
 	},
 	findById: function(id, cb) {
 		return this
 			.findOne({
 				_id: id
 			})
-			.exec(cb)
+			.exec(cb);
 	}
-}
+};
 
 module.exports = logSchema;
