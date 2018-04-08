@@ -8,7 +8,10 @@ var userSchema = new mongoose.Schema({
 		type: String
 	},
 	password: String,
-
+	avatar: {
+		type: String,
+		default: 'default.jpg'
+	},
 	// 0: normal user;
 	// 1: varified user;
 	// 2: professional user;

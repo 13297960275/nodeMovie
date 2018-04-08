@@ -5,6 +5,7 @@
 			a.navbar-brand(href="/") Movie Box
 		if user
 			p.navbar-text.navbar-right
+				img.small-avatar(src="/upload/avatar/#{user.avatar}" alt="")
 				span Welcome,#{user.name}
 				span &nbsp;|&nbsp;
 				a.navbar-link(href="/admin/user/signout") Sign Out
@@ -18,7 +19,7 @@
 				//- a.navbar-link(href="#",data-toggle="modal",data-target="#signinModal") Sign In
 .container
 	.row
-		.page-header.clearfix(style="margin:0;")
+		.page-header.clearfix.margin0
 			h3 #{title}
 			.col-md-4
 				seall movie

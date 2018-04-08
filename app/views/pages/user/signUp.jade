@@ -6,7 +6,16 @@ block content
 	//- 		h3 #{title}
 	.container
 		.row
-			form.form-horizontal(method="POST",action="/admin/user/signup")
+			form.form-horizontal(enctype="multipart/form-data",method="POST",action="/admin/user/signup")
+
+				.form-group
+					label.col-sm-2.control-label Avatar					
+					input.col-sm-8.control-label#imgBtn(type="file",name="imgCut")
+					.col-sm-8.box
+						img#previewyulan(src="")
+					.col-sm-4#thum
+				//- input(type="button",value="上传",onclick="imgSubmit()")  
+
 				.form-group
 					label.col-sm-2.control-label(for="signupName") Name
 					.col-sm-8
@@ -16,6 +25,9 @@ block content
 					label.col-sm-2.control-label(for="signupPwd") Password
 					.col-sm-8
 						input#signupPwd.form-control(name="user[password]",type="password")
+
 				.col-sm-offset-2
 					a.btn.btn-default(href="/",type="button") Cancel
 					button.btn.btn-success(type="submit") Submit
+	script(src="/js/avatar.js")
+    

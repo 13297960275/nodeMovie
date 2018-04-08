@@ -6,7 +6,7 @@ block content
 	//- 		h3 #{title}
 	.container
 		.row
-			form.form-horizontal(method="post",action="/admin/movie/add",enctype="multpart/form-data")
+			form.form-horizontal(method="post",action="/admin/movie/add",enctype="multipart/form-data")
 				if movie._id
 					input(type="hidden",name="movie[_id]" value="#{movie._id}")
 				else 
@@ -62,7 +62,7 @@ block content
 				.form-group
 					label.col-sm-2.control-label(for="uploadPoster") upload poster
 					.col-sm-10
-						input#uploadPoster(type="file",name="uploadPoster")
+						input#upload_Poster(type="file",name="uploadPoster")
 				.form-group
 					label.col-sm-2.control-label(for="flash") flash
 					.col-sm-10

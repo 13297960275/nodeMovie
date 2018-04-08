@@ -16,10 +16,10 @@ block content
 							.col-md-2.col-sm-4.col-xs-6
 								.thumbnail
 									a(href="/movie/#{item._id}")
-										img(src="#{item.poster}",alt="#{item.title}",style="height:160px;widrh:100px;")
-									.caption(style="width:100%;")
+										img.poster(src="#{item.poster}",alt="#{item.title}")
+									.caption.width100
 										h5.text-overflow #{item.title}
-										a.glyphicon.glyphicon-play(href="/movie/#{item._id}",style="position:relative;font-size: 2rem;left:80%;buttom:20%;")
+										a.glyphicon.glyphicon-play.play(href="/movie/#{item._id}")
 			ul.pagination
 				- for (var i = 0; i < totalPage; i++) {
 					- if (currentPage == i + 1) {

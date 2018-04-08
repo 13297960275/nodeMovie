@@ -1,3 +1,58 @@
+/* style init */
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin:0; padding:0; } 
+body, button, input, select, textarea { font:12px/1.5tahoma, arial, \5b8b\4f53; } 
+h1, h2, h3, h4, h5, h6{ font-size:100%; } 
+address, cite, dfn, em, var { font-style:normal; } 
+code, kbd, pre, samp { font-family:couriernew, courier, monospace; } 
+small{ font-size:12px; } 
+ul, ol { list-style:none; } 
+a { text-decoration:none; } 
+a:hover { text-decoration:underline; } 
+sup { vertical-align:text-top; } 
+sub{ vertical-align:text-bottom; } 
+legend { color:#000; } 
+fieldset, img { border:0; } 
+button, input, select, textarea { font-size:100%; } 
+table { border-collapse:collapse; border-spacing:0; }
+
+/* ==== */
+.margin0{
+	margin:0;
+}
+
+.padding0{
+	padding:0;
+}
+
+.width100{
+	width:100%;
+}
+
+.poster{
+	height:160px;
+	width:100px;
+}
+
+.play{
+	position:relative;
+	font-size: 2rem;
+	left:80%;
+	bottom:20%;
+}
+
+.avatar{
+	width:48px;
+	height:48px;
+	border-radius: 50%;
+	margin-right: 10px; 
+}
+
+.small-avatar{
+	width: 29px; 
+	height: 29px; 
+	border-radius: 50%;
+	margin-right: 10px; 
+}
 
 /* 文本超出长度不换行，以...显示 */
 .text-overflow{ 
@@ -9,7 +64,7 @@
 } 
 
 /* 设置垂直居中 */
-	/* 未知高度 */
+/* 未知高度 */
 .parentElements{
 	position:relative;
 }
@@ -19,7 +74,7 @@
 	top: 50%;
 	transform: translateY(-50%);
 }
-	/* 已知高度 */
+/* 已知高度 */
 .parentElement{
 	height:xxx;
 }
@@ -29,9 +84,113 @@
 	top: 50%;
 	transform: translateY(-50%);
 }
-	/* 不考虑建荣老师浏览器，flex布局 */
+/* 不考虑建荣老师浏览器，flex布局 */
 .parentEle{
-    display:flex;/*Flex布局*/
-    display: -webkit-flex; /* Safari */
-    align-items:center;/*指定垂直居中*/
+	display:flex;/*Flex布局*/
+	display: -webkit-flex; /* Safari */
+	align-items:center;/*指定垂直居中*/
+}
+
+/* crop */
+.crop-picker-wrap {
+	position: relative;
+	width: 100px;
+	height: 30px;
+	overflow: hidden;
+}
+.crop-picker {
+	width: 100%;
+	height: 100%;
+	line-height: 1;
+
+	-webkit-appearance: none;
+	margin: 0;
+	border: none;
+	border-radius: 5px;
+	padding: 9px 0;
+	background-color: #1ab2ff;
+
+	color: #fff;            
+	cursor: pointer;
+}
+.crop-picker-file {
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 100%;
+	opacity: 0;
+	cursor: pointer;
+	filter: alpha(opacity=0);
+}
+
+.crop-wrapper {
+	display: inline-block;
+	min-width: 750px;
+	margin: 10px 0;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0 0 5px 2px #ccc;
+}
+
+.crop-container {
+	font-size: 0;
+}
+
+.crop-container img[src=""] {
+	visibility: hidden;
+}
+
+.crop-area-wrapper,
+.crop-preview-wrapper {
+	display: inline-block;
+	vertical-align: top;
+}
+.crop-area-wrapper {
+	width: 500px;
+	height: 400px;
+}
+.crop-preview-wrapper {
+	width: 200px;
+	height: 200px;
+	margin-left: 28px;
+	overflow: hidden;
+}
+.crop-preview-container {
+	position: relative;
+	overflow: hidden;
+}
+.crop-operate {
+	text-align: center;
+	margin: 10px 0;
+}
+.crop-save,
+.crop-cancel {
+	display: inline-block;
+	vertical-align: middle;
+
+	width: 150px;
+	height: 50px;
+	line-height: 50px;
+
+	-webkit-appearance: none;
+	margin: 0 5px;
+	border: none;
+	border-radius: 5px;
+	background-color: #1ab2ff;
+
+	color: #fff;
+	cursor: pointer;
+}
+.crop-hidden {
+	display: none;
+}
+
+.preview_img {
+	width: 200px;
+	height: 200px;
+}
+
+#preview {
+	border: 1px solid #000;
 }

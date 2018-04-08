@@ -19,10 +19,10 @@ block content
 									.thumbnail
 										a(href="/movie/#{item._id}")
 											if (item.poster.indexOf('http:') > -1) || (item.poster.indexOf('https:') > -1)
-												img(src="#{item.poster}",alt="#{item.title}",style="height:160px;widrh:100px;")
+												img.poster(src="#{item.poster}",alt="#{item.title}")
 											else
-												img(src="/upload/poster/#{item.poster}",alt="#{item.title}",style="height:160px;widrh:100px;")
-										.caption(style="width:100%;")
+												img.poster(src="/upload/poster/#{item.poster}",alt="#{item.title}")
+										.caption.width100
 											h5.text-overflow #{item.title}
-											a.glyphicon.glyphicon-play(href="/movie/#{item._id}",style="position:relative;font-size: 2rem;left:80%;buttom:20%;")
+											a.glyphicon.glyphicon-play.play(href="/movie/#{item._id}")
 
