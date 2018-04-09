@@ -1,4 +1,6 @@
 var User = require('../models/user');
+var fs = require('fs');
+var path = require('path');
 
 /*user module page*/
 
@@ -32,12 +34,35 @@ exports.signUp = function(req, res) {
 
 /*user module fun*/
 
+/* upload avatar */
+exports.uploadAvatar = function(req, res, next) {
+	//接收前台POST过来的base64
+	var imgData = req.body.imgData;
+	//过滤data:URL
+	var base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
+	var dataBuffer = new Buffer(base64Data, 'base64');
+	var timeStamp = Date.now();
+	var avatar = timeStamp + '.png';
+	var newPath = path.join(__dirname, '../../', '/public/upload/avatar/' + avatar);
+	// console.log(dataBuffer);
+	fs.writeFile(newPath, dataBuffer, function(err) {
+		if (err) {
+			console.log(err);
+		} else {
+			res.json({
+				success: 1,
+				avatar: avatar
+			});
+		}
+	});
+};
+
 // user sign up fun
 exports.signUpFun = function(req, res) {
 	var _user = req.body.user;
 	// var _user = req.param('user');
 	// var _user = req.params.user;
-	// console.log('signup:_user====' + _user.name);
+	// console.log('signup:_user====' + _user);
 	// /user/signup/111?userid=111
 	// var _userid = req.query.userid;
 	// post {userid:112}
@@ -150,7 +175,7 @@ exports.userSignInRequired = function(req, res, next) {
 	var user = req.session.user;
 	if (!user) {
 		// 用户未登录
-		console.log('userSignInRequired session.user == ' + JSON.stringify(req.session.user));
+		// console.log('userSignInRequired session.user == ' + JSON.stringify(req.session.user));
 		return res.redirect('/admin/user/signin');
 	}
 
@@ -162,7 +187,7 @@ exports.userAdminRequired = function(req, res, next) {
 	var user = req.session.user;
 	if (user.role <= 10) {
 		// 普通用户
-		console.log('userAdminRequired session.user == ' + JSON.stringify(req.session.user));
+		// console.log('userAdminRequired session.user == ' + JSON.stringify(req.session.user));
 		return res.redirect('/admin/user/signin');
 	}
 

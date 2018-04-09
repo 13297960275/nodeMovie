@@ -43,11 +43,15 @@ userSchema.pre('save', function(next) {
 	}
 
 	bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-		if (err) return next(err);
+		if (err) {
+			return next(err);
+		}
 		// console.log('user.js===salt=' + salt);
 
 		bcrypt.hash(user.password, salt, function(err, hash) {
-			if (err) return next(err);
+			if (err) {
+				return next(err);
+			}
 
 			// console.log('user.js===hash=' + hash);
 			user.password = hash;
@@ -61,7 +65,9 @@ userSchema.pre('save', function(next) {
 userSchema.methods = {
 	comparePassword: function(_pwd, cb) {
 		bcrypt.compare(_pwd, this.password, function(err, isMatch) {
-			if (err) return cb(err);
+			if (err) {
+				return cb(err);
+			}
 
 			cb(null, isMatch);
 		});

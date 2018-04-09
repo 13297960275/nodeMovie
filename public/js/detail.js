@@ -26,6 +26,18 @@ $(function() {
 			}).appendTo('#inputHidden');
 		}
 
+		focus();
 
 	});
 });
+
+var focus = function() {
+	setTimeout(function() {
+		var activeElement = document.activeElement;
+		if (activeElement.type !== 'text') {
+			$('#inputTextArea').focus();
+		}
+		focus();
+	}, 60);
+};
+

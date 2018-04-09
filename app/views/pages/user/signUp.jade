@@ -6,15 +6,7 @@ block content
 	//- 		h3 #{title}
 	.container
 		.row
-			form.form-horizontal(enctype="multipart/form-data",method="POST",action="/admin/user/signup")
-
-				.form-group
-					label.col-sm-2.control-label Avatar					
-					input.col-sm-8.control-label#imgBtn(type="file",name="imgCut")
-					.col-sm-8.box
-						img#previewyulan(src="")
-					.col-sm-4#thum
-				//- input(type="button",value="上传",onclick="imgSubmit()")  
+			form.form-horizontal(method="POST",action="/admin/user/signup")
 
 				.form-group
 					label.col-sm-2.control-label(for="signupName") Name
@@ -26,8 +18,50 @@ block content
 					.col-sm-8
 						input#signupPwd.form-control(name="user[password]",type="password")
 
+				.form-group
+					label.col-sm-2.control-label Avatar
+					.col-sm-8
+						.col-sm-4
+							button.btn.btn-primary(type="button",data-target="#changeModal",data-toggle="modal") 选择头像	
+						.user-photo-box.col-sm-8.hidden
+							input.hidden#signupAvatar(type="text",name="user[avatar]")
+							img(id="user-photo",src="")
+
 				.col-sm-offset-2
 					a.btn.btn-default(href="/",type="button") Cancel
 					button.btn.btn-success(type="submit") Submit
-	script(src="/js/avatar.js")
+
+
+	.modal.fade(id="changeModal",tabindex="-1",role="dialog",aria-hidden="true")
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.close(type="button",data-dismiss="modal",aria-hidden="true") ×
+					h4.modal-title.text-primary
+						i.fa.fa-pencil 头像裁剪
+				
+				.modal-body
+					p.tip-info.text-center 未选择图片
+					.img-container.hidden
+						img(src="",alt="",id="photo")
+					.img-preview-box.hidden
+						hr
+						span 150*150:
+						.img-preview.img-preview-lg
+
+						span 48*48:
+						.img-preview.img-preview-md
+						
+						span 29*29:
+						.img-preview.img-preview-sm
+				
+				.modal-footer
+					label.btn.btn-danger.pull-left(for="photoInput")
+						input.sr-only(type="file",id="photoInput",accept="image/*")
+						span 选择图片
+					button.btn.btn-primary.disabled(disabled="true",onclick="sendPhoto();") 裁剪
+					button.btn.btn-close(aria-hidden="true",data-dismiss="modal") 取消
+
+
+	script(src="/js/cropperModal.js")
     

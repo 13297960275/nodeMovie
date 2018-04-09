@@ -36,7 +36,7 @@ module.exports = function(grunt) {
 
 		jshint: {
 			options: {
-				jshintsrc: 'jshintrc',
+				jshintrc: '.jshintrc',
 				ignores: ['public/libs/**/*.js']
 			},
 			all: ['public/js/**/*.js', 'test/**/*.js', "app/**/*.js"]

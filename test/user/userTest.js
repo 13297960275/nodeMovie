@@ -2,7 +2,9 @@ var crypto = require('crypto');
 var bcrypt = require('bcrypt');
 
 function getRandomString(len) {
-	if (!len) len = 16;
+	if (!len) {
+		len = 16;
+	}
 
 	return crypto.randomBytes(Math.ceil(len / 2));
 }

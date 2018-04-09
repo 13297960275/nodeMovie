@@ -13,7 +13,10 @@ var movieSchema = new Schema({
 	country: String,
 	summary: String,
 	flash: String,
-	poster: String,
+	poster: {
+		type: String,
+		default: 'default.png'
+	},
 	year: String,
 	pv: {
 		type: Number,

@@ -4,6 +4,18 @@ block content
 	//- .container
 	//- 	.row
 	//- 		h3 #{title}
+
+	.container
+		.row
+			.page-header.clearfix.margin0
+				.col-md-4
+				.col-md-8
+					form(action="/search",method="GET")
+						.input-group.col-sm-4.pull-right
+							input.form-control(placeholder="Search by Movie Name",type="text",name="q")
+							span.input-group-btn
+								button.btn.btn-primary(type="submit") Search
+
 	.container
 		.row
 			each cat in categories

@@ -28,8 +28,8 @@ exports.movieDetail = function(req, res) {
 			.find({
 				movie: id
 			})
-			.populate('from', "name")
-			.populate('reply.from reply.to', "name")
+			.populate('from', 'name avatar')
+			.populate('reply.from reply.to', 'name avatar')
 			.exec(function(err, comments) {
 				// console.log('comments == ' + JSON.stringify(comments));
 
@@ -120,21 +120,21 @@ exports.editMovieFun = function(req, res) {
 
 /* upload poster */
 exports.uploadPoster = function(req, res, next) {
-	// console.log(req.body,req.files);
+	// console.log(req.body, req.files);
 	// console.log(req.files);
 	// return;
 	var posterData = req.files.uploadPoster;
 	var filePath = posterData.path;
 	var originalFilename = posterData.originalFilename;
 	// console.log(req.files);
-	console.log(posterData, filePath, originalFilename);
+	// console.log(posterData, filePath, originalFilename);
 	if (originalFilename) {
 		fs.readFile(filePath, function(err, data) {
 			var timeStamp = Date.now();
 			var type = posterData.type.split('/')[1];
 			var poster = timeStamp + '.' + type;
 			var newPath = path.join(__dirname, '../../', '/public/upload/poster/' + poster);
-			console.log(newPath);
+			// console.log(newPath);
 
 			fs.writeFile(newPath, data, function(err) {
 				// console.log('data:' + data);
@@ -155,10 +155,7 @@ exports.addMovieFun = function(req, res) {
 	// console.log(movieObj);
 	// console.log(id);
 
-	if (req.poster) {
-		movieObj.poster = req.poster;
-	}
-	console.log(req.poster);
+	// console.log(req.poster);
 
 	if (id) { // 有movie id则编辑，没有则新增
 		// console.log("1");
@@ -168,8 +165,14 @@ exports.addMovieFun = function(req, res) {
 				console.log(err);
 			}
 
+			if (req.poster) { // 编辑海报，删除旧的海报
+				movieObj.poster = req.poster;
+				var newPath = path.join(__dirname, '../../', '/public/upload/poster/' + movie.poster);
+				fs.unlinkSync(newPath);
+			}
+
 			_movie = _.extend(movie, movieObj);
-			console.log(_movie);
+			// console.log(_movie);
 			_movie.save(function(err, movie) {
 				if (err) {
 					console.log(err);
@@ -179,7 +182,7 @@ exports.addMovieFun = function(req, res) {
 			});
 		});
 	} else {
-		console.log("2");
+		// console.log("2");
 		_movie = new Movie(movieObj);
 
 		var categoryId = movieObj.category;
@@ -211,7 +214,7 @@ exports.addMovieFun = function(req, res) {
 					intro: categoryIntro,
 					movies: movie._id
 				});
-				console.log(category);
+				// console.log(category);
 				category.save(function(err, category) {
 					// if (err) {
 					// 	console.log(err);

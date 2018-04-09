@@ -38,7 +38,7 @@ exports.getCategoryBypage = function(req, res) {
 	var pageNO = parseInt(req.query.page) || 0; // 分页数从0kaishi8
 	var pageSize = 2; // 每页显示数据条数
 	var q = req.query.q; // 首页搜索movie信息
-	console.log(catId + '===' + pageNO + '====' + pageSize + '===' + q);
+	// console.log(catId + '===' + pageNO + '====' + pageSize + '===' + q);
 
 	if (catId) { // 有catid表示是分页拿category下的movie信息，若无则根据搜索信息拿movie
 		Category
@@ -79,7 +79,7 @@ exports.getCategoryBypage = function(req, res) {
 			.exec(function(err, movies) {
 				movies = movies || [];
 				var results = movies.slice(pageSize * pageNO, pageSize * pageNO + 2);
-				console.log('movies===' + movies);
+				// console.log('movies===' + movies);
 
 				res.render('categoryPage', {
 					title: 'search results',

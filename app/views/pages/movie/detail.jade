@@ -17,7 +17,7 @@ block content
 								li.media
 									.pull-left
 										a.comment(href="#comments",data-cid="#{item._id}",data-tid="#{item.from._id}")
-											img.media-object.avatar(src="")
+											img.media-object.avatar(src="/upload/avatar/#{item.from.avatar}",alt="")
 									.media-body
 										h4.media-heading #{item.from.name} 
 										p #{item.content}
@@ -26,7 +26,7 @@ block content
 												.media
 													.pull-left
 														a.comment(href="#comments",data-cid="#{item._id}",data-tid="#{reply.from._id}")
-															img.media-object.avatar(src="")
+															img.media-object.avatar(src="/upload/avatar/#{reply.from.avatar}",alt="")
 													.media-body
 														h4.media-heading
 															| #{reply.from.name} 
@@ -41,7 +41,7 @@ block content
 							if user
 								input(type="hidden",name="comment[from]",value="#{user._id}")
 						.form-group
-							textarea.form-control(type="text",name="comment[content]",row="3")
+							textarea.form-control#inputTextArea(autofocus,type="text",name="comment[content]",row="3")
 						if user
 							button.btn.btn-primary(type="submit") Submit
 						else 
