@@ -39,8 +39,13 @@ app.set('views', './app/views/pages');
 app.set('view engine', 'jade');
 
 // handle request entity too large
-app.use(bodyParser.json({limit:'50mb'}));
-app.use(bodyParser.urlencoded({limit:'50mb',extended:true}));
+app.use(bodyParser.json({
+	limit: '50mb'
+}));
+app.use(bodyParser.urlencoded({
+	limit: '50mb',
+	extended: true
+}));
 
 // session及session持久化
 app.use(session({

@@ -189,6 +189,13 @@ exports.addMovieFun = function(req, res) {
 		var categoryName = movieObj.categoryName;
 		var categoryIntro = movieObj.categoryIntro;
 
+		
+		if (req.poster) { // 编辑海报，删除旧的海报
+			_movie.poster = req.poster;
+			// var newPath = path.join(__dirname, '../../', '/public/upload/poster/' + movie.poster);
+			// fs.unlinkSync(newPath);
+		}
+
 		// console.log(_movie);
 		_movie.save(function(err, movie) {
 			if (err) {

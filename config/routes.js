@@ -47,7 +47,7 @@ module.exports = function(app) {
 	/*movie module fun*/
 
 	//  admin update movie func
-	app.post('/admin/movie/edit/:id', userCtrl.userSignInRequired, userCtrl.userAdminRequired, movieCtrl.editMovieFun);
+	app.post('/admin/movie/edit/:id', userCtrl.userSignInRequired, userCtrl.userAdminRequired, multipart, movieCtrl.uploadPoster, movieCtrl.editMovieFun);
 
 	// admin add movie fun
 	app.post('/admin/movie/add', userCtrl.userSignInRequired, userCtrl.userAdminRequired, multipart, movieCtrl.uploadPoster, movieCtrl.addMovieFun);
