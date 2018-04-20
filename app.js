@@ -9,7 +9,7 @@ var mongoStore = require('connect-mongo')(session);
 var logger = require('morgan');
 var formidable = require('formidable');
 var serveStatic = require('serve-static');
-var port = process.env.PORT || 9000;
+var port = process.env.PORT || 8009;
 var app = express();
 var dbUrl = 'mongodb://localhost/movie';
 

@@ -137,7 +137,7 @@ exports.uploadPoster = function(req, res, next) {
 			// console.log(newPath);
 
 			fs.writeFile(newPath, data, function(err) {
-				// console.log('data:' + data);
+				console.log('data:' + data);
 				req.poster = poster;
 				next();
 			});
@@ -196,7 +196,7 @@ exports.addMovieFun = function(req, res) {
 			// fs.unlinkSync(newPath);
 		}
 
-		// console.log(_movie);
+		console.log('_movie:' + _movie);
 		_movie.save(function(err, movie) {
 			if (err) {
 				console.log(err);
